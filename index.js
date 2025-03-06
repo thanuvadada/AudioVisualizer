@@ -20,7 +20,7 @@ document.getElementById("audio").addEventListener("change", (event) => {
     const canvas = document.getElementById("canvas");
     const canvasContext = canvas.getContext("2d");
   
-    // Resize canvas to match its displayed size
+
     function resizeCanvas() {
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
@@ -29,7 +29,7 @@ document.getElementById("audio").addEventListener("change", (event) => {
     window.addEventListener("resize", resizeCanvas);
   
     const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 512; // Increased for more detailed frequency data
+    analyser.fftSize = 512; 
   
     const frequencyBufferLength = analyser.frequencyBinCount;
     const frequencyData = new Uint8Array(frequencyBufferLength);
@@ -40,13 +40,12 @@ document.getElementById("audio").addEventListener("change", (event) => {
     analyser.connect(audioContext.destination);
     source.start();
   
-    const barWidth = (canvas.width / frequencyBufferLength) * 2; // Slightly wider bars
-    const barSpacing = 2; // Space between bars
+    const barWidth = (canvas.width / frequencyBufferLength) * 2; 
+    const barSpacing = 2; 
   
     function draw() {
       requestAnimationFrame(draw);
   
-      // Clear canvas with a semi-transparent fill for a fading effect
       canvasContext.fillStyle = "rgba(0, 0, 0, 0.1)";
       canvasContext.fillRect(0, 0, canvas.width, canvas.height);
   
@@ -58,11 +57,11 @@ document.getElementById("audio").addEventListener("change", (event) => {
         const height = canvas.height * percent;
         const offset = canvas.height - height;
   
-        // Dynamic color based on intensity
+        
         const hue = percent * 360; // Hue from 0 to 360
         canvasContext.fillStyle = `hsl(${hue}, 70%, 50%)`;
   
-        // Draw bar with slight 3D effect
+      
         canvasContext.fillRect(
           i * (barWidth + barSpacing),
           offset,
@@ -70,7 +69,7 @@ document.getElementById("audio").addEventListener("change", (event) => {
           height
         );
   
-        // Add a subtle glow effect
+      
         canvasContext.fillStyle = `hsla(${hue}, 70%, 50%, 0.3)`;
         canvasContext.fillRect(
           i * (barWidth + barSpacing),
